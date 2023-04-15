@@ -28,6 +28,29 @@ def TASK_2():
 # Задача 2. Напишите программу, в которой пользователь будет задавать две строки, а программа - определять количество вхождений одной строки в другую.
 
 def TASK_3():
-    substringn = input("Введите подстроку: ")
+    substring = input("Введите подстроку: ")
     phrase = input("Введите фразу: ")
-    
+    lenght_substring = len(substring)
+    lenght_phrase = len(phrase)
+    counter = 0
+
+    for i in range(lenght_phrase):
+        if phrase[i: i + lenght_substring] == substring:
+            counter = counter + 1
+    print(f"Подстрока {substring} встречатеся {counter} раз(-а) во фразе {phrase}")
+
+#TASK_3()
+
+
+# Задача 3. Дано число N. Заполните список длиной N элементами 1, -3, 9, -27, 81, -243...
+
+def TASK_4():
+    number = int(input("Input a number: "))
+    element = 1
+    numbers = []
+    for i in range(number):
+        numbers.append(element)
+        element *= -3
+    print(numbers) 
+
+#TASK_4()
