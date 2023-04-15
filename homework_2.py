@@ -21,3 +21,21 @@ def TASK_2():
 
 
 # Задача 3. Даны две строки. Посчитайте сколько раз каждый символ первой строки встречается во второй
+
+def TASK_3():
+    substring = input("Input a substring: ")
+    phrase = input("Input a phrase: ")
+    lenght_substring = len(substring)
+    lenght_phrase = len(phrase)
+    
+
+    for i in range(lenght_substring):
+        counter = 0
+        for j in range (lenght_phrase):
+            if substring[i] == phrase[j]:
+                counter = counter + 1
+        print(f"The symbol {substring[i]} occur {counter} time in {phrase}")
+    
+#TASK_3() 
+
+
