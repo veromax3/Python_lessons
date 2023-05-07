@@ -14,9 +14,20 @@ def  Increasing_sequence():
     list_length_2 = int(input("Input list length: "))
     numbers_2 = [random.randint(1, 100) for i in range(list_length_2)]
     print(numbers_2)
-    for i in range(list_length_2):
-        if numbers_2[i] > 
+    seq = []
+    random_start = random.randint(0, list_length_2)
+    random_step = random.randint(1, list_length_2)
+    print(random_start)
+    print(random_step)
 
+    for j in range(random_start, list_length_2, random_step):
+        
+        random_step = random.randint(1, list_length_2)
+        random_start = random.randint(0, list_length_2)
+        seq.append(numbers_2[j])
+        print(f"j = {j}, start = {random_start}, step = {random_step}, num = {numbers_2[j]}")
+        
+    print(seq)
 Increasing_sequence()
 
 
