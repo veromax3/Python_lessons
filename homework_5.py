@@ -13,24 +13,28 @@ def Random_bigger_5():
 def  Increasing_sequence():
     list_length_2 = int(input("Input list length: "))
     numbers_2 = [random.randint(1, 100) for i in range(list_length_2)]
-    print(numbers_2)
+    print(f"Random list is: {numbers_2}")
     seq = []
-    random_start = random.randint(0, list_length_2)
-    random_step = random.randint(1, list_length_2)
-    print(random_start)
-    print(random_step)
+    copy_i = -1
+    i = random.randint(0, list_length_2 -1)
+    while i < list_length_2 - 1:
+        if i > copy_i:
+            seq.append(numbers_2[i])
+            copy_i = i
+            i = random.randint(1, list_length_2)
+        else:
+            i = random.randint(1, list_length_2)
+    print(f"Random sequence from list: {seq}")
 
-    for j in range(random_start, list_length_2, random_step):
-        
-        random_step = random.randint(1, list_length_2)
-        random_start = random.randint(0, list_length_2)
-        seq.append(numbers_2[j])
-        print(f"j = {j}, start = {random_start}, step = {random_step}, num = {numbers_2[j]}")
-        
-    print(seq)
-Increasing_sequence()
+    i = 0
+    counter = 0
+    while counter < len(seq) - 1:
+        if seq[i] > seq[i + 1]:
+            seq.pop(i + 1)
+        else:
+            counter += 1
+            i += 1  
+    print(f"The increasing random sequence from random list is: {seq}")
 
+#Increasing_sequence()
 
-
-
-# Задача 3. Задайте список случайных чисел от 1 до 10. Посчитайте, сколько всего совпадающих элементов есть в списке. Удалите все повторяющиеся элементы.
