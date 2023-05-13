@@ -38,3 +38,23 @@ def  Increasing_sequence():
 
 #Increasing_sequence()
 
+# Задача 3. Задайте список случайных чисел от 1 до 10. Посчитайте, сколько всего совпадающих элементов есть в списке. Удалите все повторяющиеся элементы.
+
+def Repeats():
+    list_length_3 = int(input("Input list length: "))
+    numbers_3 = [random.randint(1, 10) for i in range(list_length_3)]
+    print(numbers_3)
+    repeats = 0
+    i = 0
+    while i < len(numbers_3):
+        counter = numbers_3.count(numbers_3[i])
+        if counter > 1:
+            print(f"{numbers_3[i]} repeats in list {counter} times")
+            repeats += 1
+            numbers_3.remove(numbers_3[i])
+        i += 1
+    
+    print(f"There are {repeats} repeats in list")
+    print(f"Unique sequence is {numbers_3}")
+
+# Repeats()
