@@ -1,3 +1,5 @@
+# TASK1
+
 def our_format(func):
     def decorator(*args):
         for arg in args:
@@ -17,3 +19,18 @@ def sum4(a, b, c, d):
 
 sum(4, 6)
 sum4(4, 2, 1, 9)
+
+# TASK2
+
+def greetings(hello):
+    def our_greetings(func):
+        def decorator():
+            name = func()
+            print(f"{hello}, {name}")
+        return decorator
+    return our_greetings
+
+@greetings("Приветик")
+def get_name():
+    return input("Как тебя зовут?\n")
+get_name()
