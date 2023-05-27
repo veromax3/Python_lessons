@@ -1,5 +1,7 @@
 import random
 import time
+import telebot
+
 
 # Задача 1. Создайте пользовательский аналог метода map()
 def Map():
@@ -31,3 +33,46 @@ def love():
     string3 = "I love summer! "
     return (string1 + string2 + string3)
 
+# Задача 3. Добавьте в telegram-бота игру «Угадай числа». Бот загадывает число от 1 до 1000. 
+# Когда игрок угадывает его, бот выводит количество сделанных ходов.
+
+import random
+import telebot
+import requests
+import time
+
+bot = telebot.TeleBot("6142085689:AAG5DQcUgKNyDOwjw4XWPM33UR840we7Dj8")
+@bot.message_handler(content_types=['text'])
+def greetings(message):
+    # print(message)
+    text = message.text
+    if "привет" in text:
+        bot.reply_to(message,f"Приветик, {message.from_user.first_name}. Если хочешь сыграть в игру, напиши мне 'игра'")
+    if "игра" == text:
+        game_start = bot.reply_to(message,"Я загадала число от 1 до 1000. Попробуй угадать. Для окончания игры скажи 'сдаюсь' :)")
+        bot.register_next_step_handler(game_start, game)
+        
+counter = 0
+num = int(random.randint(1, 1000))
+print(num)
+
+def game(message):
+    global num
+    counter = 0
+    repeats = counter
+    if message.text == "сдаюсь":
+            bot.reply_to(message, f"Ты не отгадал {repeats} раз, может, в следующем раунде получится :) А загадала я {num}")
+    elif int(message.text) == num:
+        bot.reply_to(message,f"Угадал! Всего за {repeats} попыток") 
+    else:
+        if int(message.text) > num:
+            counter +=1 
+            bot.reply_to(message,"Твое число больше")
+            bot.register_next_step_handler(message, game)
+        elif int(message.text) < num:
+            counter +=1 
+            bot.reply_to(message,"Твое число меньше")
+            bot.register_next_step_handler(message, game)
+    counter += 1
+    repeats = counter
+bot.polling()
