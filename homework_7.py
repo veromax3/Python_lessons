@@ -52,27 +52,21 @@ def greetings(message):
         game_start = bot.reply_to(message,"Я загадала число от 1 до 1000. Попробуй угадать. Для окончания игры скажи 'сдаюсь' :)")
         bot.register_next_step_handler(game_start, game)
         
-counter = 0
 num = int(random.randint(1, 1000))
 print(num)
 
 def game(message):
-    global num
-    counter = 0
-    repeats = counter
+    repeats = 1
     if message.text == "сдаюсь":
             bot.reply_to(message, f"Ты не отгадал {repeats} раз, может, в следующем раунде получится :) А загадала я {num}")
     elif int(message.text) == num:
         bot.reply_to(message,f"Угадал! Всего за {repeats} попыток") 
     else:
         if int(message.text) > num:
-            counter +=1 
             bot.reply_to(message,"Твое число больше")
             bot.register_next_step_handler(message, game)
         elif int(message.text) < num:
-            counter +=1 
             bot.reply_to(message,"Твое число меньше")
             bot.register_next_step_handler(message, game)
-    counter += 1
-    repeats = counter
+    repeats = repeats + 1
 bot.polling()
