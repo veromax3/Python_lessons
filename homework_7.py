@@ -1,5 +1,4 @@
 import random
-import time
 import telebot
 
 
@@ -36,37 +35,39 @@ def love():
 # Задача 3. Добавьте в telegram-бота игру «Угадай числа». Бот загадывает число от 1 до 1000. 
 # Когда игрок угадывает его, бот выводит количество сделанных ходов.
 
-import random
-import telebot
-import requests
-import time
-
 bot = telebot.TeleBot("6142085689:AAG5DQcUgKNyDOwjw4XWPM33UR840we7Dj8")
+
 @bot.message_handler(content_types=['text'])
-def greetings(message):
-    # print(message)
+def send_welcome(message):
     text = message.text
-    if "привет" in text:
-        bot.reply_to(message,f"Приветик, {message.from_user.first_name}. Если хочешь сыграть в игру, напиши мне 'игра'")
-    if "игра" == text:
-        game_start = bot.reply_to(message,"Я загадала число от 1 до 1000. Попробуй угадать. Для окончания игры скажи 'сдаюсь' :)")
-        bot.register_next_step_handler(game_start, game)
-        
+    if  text == "game":
+        game_start = bot.reply_to(message,"I picked a number from 1 to 1000. Try to guess. To finish, write 'give up':)")
+        bot.register_next_step_handler(game_start, letsplay)
+
+
 num = int(random.randint(1, 1000))
 print(num)
-
-def game(message):
-    repeats = 1
-    if message.text == "сдаюсь":
-            bot.reply_to(message, f"Ты не отгадал {repeats} раз, может, в следующем раунде получится :) А загадала я {num}")
-    elif int(message.text) == num:
-        bot.reply_to(message,f"Угадал! Всего за {repeats} попыток") 
+counter = 0
+def letsplay(message):
+    global num
+    global counter
+    if message.text.isdigit() == True:
+        if int(message.text) == num:
+            counter += 1
+            bot.reply_to(message,f"Сongratulations, you guessed right! You made {counter} tries :)") 
+        else:
+            if int(message.text) > num:
+                counter += 1
+                bot.reply_to(message,"Your number is higher")
+                bot.register_next_step_handler(message, letsplay)
+            elif int(message.text) < num:
+                counter += 1
+                bot.reply_to(message,"Your number is less")
+                bot.register_next_step_handler(message, letsplay)
+    elif message.text == "give up":
+            bot.reply_to(message, f"You made {counter} tries. Maybe you'll win the next round :) And my number was {num}")
     else:
-        if int(message.text) > num:
-            bot.reply_to(message,"Твое число больше")
-            bot.register_next_step_handler(message, game)
-        elif int(message.text) < num:
-            bot.reply_to(message,"Твое число меньше")
-            bot.register_next_step_handler(message, game)
-    repeats = repeats + 1
+        bot.reply_to(message,"Oops, you inputted something wrong o_O. Please, try again")
+        bot.register_next_step_handler(message, letsplay)
+
 bot.polling()
