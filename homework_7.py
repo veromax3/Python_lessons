@@ -2,6 +2,7 @@ import random
 import telebot
 
 
+
 # Задача 1. Создайте пользовательский аналог метода map()
 def Map():
     def MAP(function1, numbers1):  
@@ -10,7 +11,8 @@ def Map():
     num_list1 = [random.randint(1, 10) for i in range(list_length1)]
     print(f"Original list is: {num_list1}")
     print(f"Finished list is: {list(MAP(lambda x: x**2 - 2, num_list1))}")
-# Map()
+Map()
+print()
 
 # Задача 2. Создайте декоратор, повторяющий функцию заданное количество раз.
 
@@ -31,12 +33,20 @@ def love():
     string2 = "I love ice cream! "
     string3 = "I love summer! "
     return (string1 + string2 + string3)
+print()
 
 # Задача 3. Добавьте в telegram-бота игру «Угадай числа». Бот загадывает число от 1 до 1000. 
 # Когда игрок угадывает его, бот выводит количество сделанных ходов.
 
-bot = telebot.TeleBot("6142085689:AAG5DQcUgKNyDOwjw4XWPM33UR840we7Dj8")
 
+bot = telebot.TeleBot("6142085689:AAG5DQcUgKNyDOwjw4XWPM33UR840we7Dj8")
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(message, "If you are ready to play, write 'game'")
+
+num = int(random.randint(1, 1000))
+print(f"My number is {num}")
+counter = 0
 @bot.message_handler(content_types=['text'])
 def send_welcome(message):
     text = message.text
@@ -44,10 +54,6 @@ def send_welcome(message):
         game_start = bot.reply_to(message,"I picked a number from 1 to 1000. Try to guess. To finish, write 'give up':)")
         bot.register_next_step_handler(game_start, letsplay)
 
-
-num = int(random.randint(1, 1000))
-print(num)
-counter = 0
 def letsplay(message):
     global num
     global counter
@@ -66,6 +72,7 @@ def letsplay(message):
                 bot.register_next_step_handler(message, letsplay)
     elif message.text == "give up":
             bot.reply_to(message, f"You made {counter} tries. Maybe you'll win the next round :) And my number was {num}")
+            
     else:
         bot.reply_to(message,"Oops, you inputted something wrong o_O. Please, try again")
         bot.register_next_step_handler(message, letsplay)
