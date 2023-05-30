@@ -39,7 +39,7 @@ print()
 # Когда игрок угадывает его, бот выводит количество сделанных ходов.
 
 
-bot = telebot.TeleBot("6142085689:AAG5DQcUgKNyDOwjw4XWPM33UR840we7Dj8")
+bot = telebot.TeleBot("")
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     bot.reply_to(message, "If you are ready to play, write 'game'")
