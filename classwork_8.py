@@ -37,4 +37,5 @@ def text_messange(message):
         id_list = id_list[:-1]
         for id in id_list:
             bot.send_message(id, "Совещание через 5 минут!")
+            
 bot.polling()
