@@ -2,7 +2,7 @@ import telebot
 from telebot import types
 
 
-bot = telebot.TeleBot("6142085689:AAG5DQcUgKNyDOwjw4XWPM33UR840we7Dj8")
+bot = telebot.TeleBot("")
 markup = types.ReplyKeyboardMarkup(row_width = 1)
 btn_reg = types.KeyboardButton('регистрация')
 btn_alarm = types.KeyboardButton('оповещение')
