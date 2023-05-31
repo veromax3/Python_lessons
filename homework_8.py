@@ -18,7 +18,7 @@ import telebot
 
 # Задача 2. Напишите программу, которая позволяет считывать из файла вопрос, отвечать на него и отправлять ответ обратно пользователю.
 
-bot = telebot.TeleBot("")
+bot = telebot.TeleBot(":")
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     bot.send_message(message.from_user.id, "Howdy")
