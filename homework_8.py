@@ -1,41 +1,40 @@
 # Задача 1. Напишите бота для техподдержки. Бот должен записывать обращения пользователей в файл.
 import telebot
-from telebot import types
+
+# bot = telebot.TeleBot("")
+# @bot.message_handler(commands=['start', 'help'])
+# def send_welcome(message):
+#     bot.send_message(message.from_user.id, "Howdy")
+
+# @bot.message_handler(content_types=['text'])
+# def text_messange(message):
+#     data1 = open("log1.txt", mode = "a", encoding = "utf-8")
+#     text1 = (f"{message.from_user.id}: {message.text}\n")
+#     data1.write(text1)
+#     data1.close()
+# bot.polling()
 
 
-bot = telebot.TeleBot("6142085689:AAG5DQcUgKNyDOwjw4XWPM33UR840we7Dj8")
-markup = types.ReplyKeyboardMarkup(row_width = 1)
-btn_reg = types.KeyboardButton('регистрация')
-btn_alarm = types.KeyboardButton('оповещение')
-markup.add(btn_reg, btn_alarm)
 
+# Задача 2. Напишите программу, которая позволяет считывать из файла вопрос, отвечать на него и отправлять ответ обратно пользователю.
+
+bot = telebot.TeleBot("")
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.send_message(message.from_user.id, "Howdy", reply_markup = markup)
+    bot.send_message(message.from_user.id, "Howdy")
 
 @bot.message_handler(content_types=['text'])
 def text_messange(message):
-    data = open("log.txt", mode = "a", encoding = "utf-8")
-    text = (f"{message.from_user.first_name} {message.from_user.last_name}: {message.text}\n")
-    data.write(text)
-    data.close()
-    if message.text == "регистрация":
-        data = open("registred_user.txt", mode = "r", encoding = "utf-8")
-        id_list = data.readlines()
-        data.close()
-        id_list = list(el[:-1] for el in id_list)
-        if str(message.from_user.id) not in id_list:
-            data = open("registred_user.txt", mode = "a", encoding = "utf-8")
-            data.write(f"{message.from_user.id}\n")
-            data.close()
-            bot.reply_to(message, "Регистарация прошла успешла!")
-        else:
-            bot.reply_to(message, "Вы уже зарегистрированы!")
-    elif message.text == "оповещение":
-        data = open("registred_user.txt", mode = "r", encoding = "utf-8")
-        id_list = data.read().split('\n')
-        data.close()
-        id_list = id_list[:-1]
-        for id in id_list:
-            bot.send_message(id, "Совещание через 5 минут!")
+    data2 = open("log2.txt", mode = "a", encoding = "utf-8")
+    text2 = (f"{message.from_user.id}: {message.text}\n")
+    data2.write(text2)
+    data2.close()
+    if "?" in text2:
+        question = text2.split(":")[1]
+        print(f"Question of user: {question}")
+        id = (text2.split(":"))[0]
+        answer = input("Input answer: ")
+        bot.send_message(id, answer)
+    else:
+        bot.send_message(message.from_user.id, "Please, ask your question")
 bot.polling()
