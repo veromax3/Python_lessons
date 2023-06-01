@@ -25,11 +25,10 @@ def Matrix():
         for j in range(0, size[1]):
             if matrix[i][j] == 1:
                 count += 1
-                print(count, i, j)
     if count > size[0]:
         print("The array contains the same strings")
     else:
-        print("The array does not contains the same strings")
+        print("The strings are unique")
 Matrix()
 
 # Задача 3. Создайте двумерный массив случайного размера. Найдите индексы максимального и минимального элементов в нём.
